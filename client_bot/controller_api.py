@@ -1,19 +1,13 @@
 import json
 from socket import socket, AF_INET, SOCK_STREAM
 
-from config import CONTROLLER_SOCKET
+from config import configuration
 
 
 class ControllerAPI:
-    instance: 'ControllerAPI'
 
-    def __new__(cls, *args, **kwargs):
-        if not hasattr(cls, 'instance'):
-            cls.instance = super(ControllerAPI, cls).__new__(cls)
-        return cls.instance
-
-    def __init__(self, addr: tuple[str, int]):
-        self.addr = addr
+    def __init__(self, ip: str, port: int):
+        self.addr = (ip, port)
         self.__controller_socket = socket(AF_INET, SOCK_STREAM)
         self.__connect()
 
@@ -46,4 +40,4 @@ class ControllerAPI:
         return json.loads(data)
 
 
-controller = ControllerAPI(CONTROLLER_SOCKET)
+controller_client = ControllerAPI(configuration.controller.ip, configuration.controller.port)

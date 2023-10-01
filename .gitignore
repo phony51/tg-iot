@@ -1,2 +1,6 @@
-.env
-venv/
+**/*.env
+**/venv/
+**/config.json
+**/__init__.py
+**/*.pyc
+**/__pycache__
